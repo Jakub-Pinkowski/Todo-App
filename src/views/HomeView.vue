@@ -6,7 +6,7 @@
                 <input
                     type="text"
                     id="name"
-                    placeholder="Insert your name here"
+                    placeholder="insert your name here"
                     v-model="name"
                 />
             </h2>
@@ -75,10 +75,24 @@
                     </label>
 
                     <div class="todo-content">
-                        <input type="text" v-model="todo.content" />
+                        <input
+                            v-if="!todo.editable"
+                            type="text"
+                            v-model="todo.content"
+                            readonly
+                        />
+                        <input
+                            v-else
+                            type="text"
+                            v-model="todo.content"
+                            @keyup.enter="saveEdit(todo)"
+                        />
                     </div>
 
                     <div class="actions">
+                        <button class="edit" @click="toggleEdit(todo)">
+                            {{ todo.editable ? 'Save' : 'Edit' }}
+                        </button>
                         <button class="delete" @click="removeTodo(todo)">
                             Delete
                         </button>
@@ -112,6 +126,7 @@ const todos_asc = computed(() =>
     })
 )
 
+// Watchers
 watch(name, (newVal: string) => {
     localStorage.setItem('name', newVal)
 })
@@ -126,6 +141,7 @@ watch(
     }
 )
 
+// Add todo
 const addTodo = () => {
     if (input_content.value.trim() === '' || input_category.value === null) {
         return
@@ -140,8 +156,19 @@ const addTodo = () => {
     })
 }
 
+// Remove todo
 const removeTodo = (todo: Todo) => {
     todos.value = todos.value.filter((t) => t !== todo)
+}
+
+// Edit todo
+
+const toggleEdit = (todo: Todo) => {
+    todo.editable = !todo.editable
+}
+
+const saveEdit = (todo: Todo) => {
+    todo.editable = false
 }
 
 onMounted(() => {
