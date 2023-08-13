@@ -1,7 +1,7 @@
 :root {
-    --primary: #264653;
-    --business: #2a9d8f;
-    --personal: #f4a261;
+    --primary: #003049;
+    --business: #3a86ff;
+    --personal: #ff006e;
     --light: #eee;
     --grey: #888;
     --dark: #313154;
@@ -9,6 +9,7 @@
 
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
+    --primary-glow: 0px 0px 4px rgba(0, 48, 73, 0.75);
     --business-glow: 0px 0px 4px rgba(58, 130, 238, 0.75);
     --personal-glow: 0px 0px 4px rgba(234, 64, 164, 0.75);
 }
@@ -161,7 +162,7 @@ input:checked ~ .bubble::after {
     color: #fff;
     background-color: var(--primary);
     border-radius: 0.5rem;
-    box-shadow: var(--personal-glow);
+    box-shadow: var(--primary-glow);
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
